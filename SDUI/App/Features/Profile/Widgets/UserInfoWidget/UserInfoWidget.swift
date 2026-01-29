@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// A widget displaying user profile details.
+///
+/// Demonstrates fetching data with an artificial delay to showcase the Skeleton state.
 struct UserInfoWidget: View {
     let source: String
     
@@ -17,6 +20,8 @@ struct UserInfoWidget: View {
         WidgetShell(
             source: source,
             action: { url in
+                // Artificial delay to demonstrate skeleton loading animation
+                // In a real app, perform: await APIService.fetch(source)
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
                 user = UserProfile(name: "John Doe", email: "johndoe@email.com")
             },

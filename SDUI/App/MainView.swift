@@ -10,18 +10,12 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            GenericTabView(
-                title: "Home",
-                items: HomeConfig.mockResponse()
-            ) { item in
+            GenericTabView(title: "Home", items: HomeService.mockResponse()) { item in
                 HomeConfig.view(for: item)
             }
             .tabItem { Label("Home", systemImage: "house") }
             
-            GenericTabView(
-                title: "Profile",
-                items: ProfileConfig.mockResponse()
-            ) { item in
+            GenericTabView(title: "Profile", items: ProfileService.mockResponse()) { item in
                 ProfileConfig.view(for: item)
             }
             .tabItem { Label("Profile", systemImage: "person") }
