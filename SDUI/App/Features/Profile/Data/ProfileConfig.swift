@@ -8,24 +8,23 @@
 import SwiftUI
 
 class ProfileConfig {
-    static func registry() -> WidgetRegistry<ProfileWidgetType> {
-        let registry = WidgetRegistry<ProfileWidgetType>()
-        
-        registry.register(type: .userInfo) { item in
-            AnyView(UserInfoWidget(source: item.source))
+    @MainActor
+    @ViewBuilder
+    static func view(for item: WidgetItem<ProfileWidgetType>) -> some View {
+        switch item.type {
+        case .banner:
+            BannerWidget(source: item.source)
+            
+        case .graph:
+            GraphWidget(source: item.source)
+            
+        case .userInfo:
+            UserInfoWidget(source: item.source)
+            
+        case .unknown:
+            EmptyView()
         }
-        
-        registry.register(type: .banner) { item in
-            AnyView(BannerWidget(source: item.source))
-        }
-        
-        registry.register(type: .graph) { item in
-            AnyView(GraphWidget(source: item.source))
-        }
-        
-        return registry
     }
-    
 
     static func mockResponse() -> [WidgetItem<ProfileWidgetType>] {
         let data: [WidgetItem<ProfileWidgetType>] = [

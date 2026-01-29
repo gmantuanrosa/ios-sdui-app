@@ -8,18 +8,19 @@
 import SwiftUI
 
 class HomeConfig {
-    static func registry() -> WidgetRegistry<HomeWidgetType> {
-        let registry = WidgetRegistry<HomeWidgetType>()
-        
-        registry.register(type: .banner) { item in
-            AnyView(BannerWidget(source: item.source))
+    @MainActor
+    @ViewBuilder
+    static func view(for item: WidgetItem<HomeWidgetType>) -> some View {
+        switch item.type {
+        case .banner:
+            BannerWidget(source: item.source)
+            
+        case .action:
+            ActionWidget(source: item.source)
+            
+        case .unknown:
+            EmptyView()
         }
-        
-        registry.register(type: .action) { item in
-            AnyView(ActionWidget(source: item.source))
-        }
-        
-        return registry
     }
     
     static func mockResponse() -> [WidgetItem<HomeWidgetType>] {

@@ -12,16 +12,18 @@ struct MainView: View {
         TabView {
             GenericTabView(
                 title: "Home",
-                registry: HomeConfig.registry(),
                 items: HomeConfig.mockResponse()
-            )
+            ) { item in
+                HomeConfig.view(for: item)
+            }
             .tabItem { Label("Home", systemImage: "house") }
             
             GenericTabView(
                 title: "Profile",
-                registry: ProfileConfig.registry(),
                 items: ProfileConfig.mockResponse()
-            )
+            ) { item in
+                ProfileConfig.view(for: item)
+            }
             .tabItem { Label("Profile", systemImage: "person") }
         }
     }
